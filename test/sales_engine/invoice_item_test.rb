@@ -19,6 +19,7 @@ class InvoiceItemTest < MiniTest::Test
       updated_at: "2012-03-27 14:54:09 UTC",
     }
     invoice_item = SalesEngine::InvoiceItem.new(data)
+
     assert_equal data[:id],         invoice_item.id
     assert_equal data[:item_id],    invoice_item.item_id
     assert_equal data[:invoice_id], invoice_item.invoice_id
