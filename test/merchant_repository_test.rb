@@ -1,21 +1,21 @@
 require './test/test_helper'
-require './lib/sales_engine/merchant_repository.rb'
+require './lib/merchant_repository.rb'
 
 class MerchantRepositoryTest < MiniTest::Test
 
   def setup
     @fixture = './test/fixtures/merchants.csv'
-    @merchant_repository = SalesEngine::MerchantRepository.new(@fixture)
+    @merchant_repository = MerchantRepository.new(@fixture)
   end
 
   def test_it_initializes
     #this also means it initializes with no data
-    assert_kind_of SalesEngine::MerchantRepository, @merchant_repository
+    assert_kind_of MerchantRepository, @merchant_repository
   end
 
   def test_it_initializes_with_correct_data
     m = @merchant_repository.all[0]
-    assert_kind_of SalesEngine::Merchant, m
+    assert_kind_of Merchant, m
     assert_equal 1, m.id
     assert_equal "Schroeder-Jerde", m.name
     assert_equal "2012-03-27 14:53:59 UTC", m.created_at

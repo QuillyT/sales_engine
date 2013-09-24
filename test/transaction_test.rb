@@ -1,11 +1,11 @@
 require './test/test_helper'
-require './lib/sales_engine/transaction'
+require './lib/transaction'
 
 class TransactionTest < MiniTest::Test
 
   def test_it_initializes
-    transaction = SalesEngine::Transaction.new
-    assert_kind_of SalesEngine::Transaction, transaction
+    transaction = Transaction.new
+    assert_kind_of Transaction, transaction
   end
 
   def test_it_initializes_with_d
@@ -18,7 +18,7 @@ class TransactionTest < MiniTest::Test
       created_at: "2012-03-27 14:54:09 UTC",
       updated_at: "2012-03-27 14:54:09 UTC",
     }
-    t = SalesEngine::Transaction.new(d)
+    t = Transaction.new(d)
 
     assert_equal d[:id],                          t.id
     assert_equal d[:invoice_id],                  t.invoice_id

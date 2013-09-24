@@ -1,11 +1,11 @@
 require './test/test_helper'
-require './lib/sales_engine/customer.rb'
+require './lib/customer.rb'
 
 class CustomerTest < MiniTest::Test
 
   def test_it_initializes
-    customer = SalesEngine::Customer.new
-    assert_kind_of SalesEngine::Customer, customer
+    customer = Customer.new
+    assert_kind_of Customer, customer
   end
 
   def test_it_initializes_with_correct_data
@@ -16,7 +16,7 @@ class CustomerTest < MiniTest::Test
       updated_at: "2012-03-27 14:54:09 UTC",
       created_at: "2012-03-27 14:54:09 UTC"
     }
-    customer = SalesEngine::Customer.new(data)
+    customer = Customer.new(data)
     assert_equal data[:id],         customer.id
     assert_equal data[:first_name], customer.first_name
     assert_equal data[:last_name],  customer.last_name

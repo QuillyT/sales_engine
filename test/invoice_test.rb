@@ -1,11 +1,11 @@
 require './test/test_helper'
-require './lib/sales_engine/invoice.rb'
+require './lib/invoice.rb'
 
 class InvoiceTest < MiniTest::Test
 
   def test_it_initializes
-    invoice = SalesEngine::Invoice.new
-    assert_kind_of SalesEngine::Invoice, invoice
+    invoice = Invoice.new
+    assert_kind_of Invoice, invoice
   end
 
   def test_it_initializes_with_correct_data
@@ -17,7 +17,7 @@ class InvoiceTest < MiniTest::Test
       created_at: "2012-03-25 09:54:09 UTC",
       updated_at: "2012-03-25 09:54:09 UTC",
     }
-    invoice = SalesEngine::Invoice.new(data)
+    invoice = Invoice.new(data)
 
     assert_equal data[:id],          invoice.id
     assert_equal data[:customer_id], invoice.customer_id

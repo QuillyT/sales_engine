@@ -1,19 +1,19 @@
 require './test/test_helper'
 require './lib/sales_engine'
 
-class EngineTest < MiniTest::Test
+class SalesEngineTest < MiniTest::Test
 
   def setup
-    @engine = SalesEngine::Engine.new
+    @engine = SalesEngine.new
   end
 
   def test_it_initializes
-    assert_kind_of SalesEngine::Engine, @engine
+    assert_kind_of SalesEngine, @engine
   end
 
   def test_it_starts_up
     @engine.startup
-    assert_kind_of SalesEngine::ItemRepository, @engine.item_repository 
+    assert_kind_of ItemRepository, @engine.item_repository 
   end
 
 end

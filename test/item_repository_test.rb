@@ -1,23 +1,23 @@
 require './test/test_helper'
-require './lib/sales_engine/item_repository.rb'
+require './lib/item_repository.rb'
 
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
     @fixture = './test/fixtures/items.csv'
-    @repository = SalesEngine::ItemRepository.new(@fixture)
+    @repository = ItemRepository.new(@fixture)
   end
 
   def test_it_initializes
     #skip
     #this also means it initializes with no data
-    assert_kind_of SalesEngine::ItemRepository, @repository
+    assert_kind_of ItemRepository, @repository
   end
 
   def test_it_initializes_with_correct_data
     #skip
     i = @repository.all[0]
-    assert_kind_of SalesEngine::Item, i
+    assert_kind_of Item, i
     assert_equal 1, i.id
     assert_equal "Item Qui Esse", i.name
     assert_equal "2012-03-27 14:53:59 UTC", i.created_at
