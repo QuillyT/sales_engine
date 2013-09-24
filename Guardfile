@@ -1,8 +1,10 @@
 guard :minitest do
   # with Minitest::Unit
+  watch(%r{^test/sales_engine_test.rb})
+  watch(%r{^lib/sales_engine.rb})                   { 'test/sales_engine_test.rb' }
   watch(%r{^test/sales_engine(.*)\/?_test(.*)\.rb})
-  watch(%r{^lib/sales_engine/(.*/)?([^/]+)\.rb})     { |m| "test/sales_engine/#{m[2]}_test.rb" }
-  watch(%r{^test/test_helper\.rb})      { 'test' }
+  watch(%r{^lib/sales_engine/(.*/)?([^/]+)\.rb})    { |m| "test/sales_engine/#{m[2]}_test.rb" }
+  watch(%r{^test/test_helper\.rb})                  { 'test' }
 
   # with Minitest::Spec
   # watch(%r{^spec/(.*)_spec\.rb})

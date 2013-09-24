@@ -32,7 +32,7 @@ module SalesEngine
     end
 
     def find_by_attribute(attribute, criteria)
-      all.find do |object| 
+      all.find do |object|
         object.send(attribute).to_s.downcase == criteria.to_s.downcase
       end
     end
