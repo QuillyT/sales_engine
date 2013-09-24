@@ -64,9 +64,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_id
-    skip
-    merchant_repository = SalesEngine::MerchantRepository.new
-    merchants = merchant_repository.find_all_by_id(1)
+    merchants = @merchant_repository.find_all_by_id(1)
     assert_equal 1, merchants.length
     assert_equal "Schroeder-Jerde", merchants[0].name
     assert_equal "2012-03-27 14:53:59 UTC", merchants[0].created_at
@@ -74,7 +72,6 @@ class MerchantRepositoryTest < MiniTest::Test
   end
   
   def test_find_all_by_name
-    #skip
     merchants = @merchant_repository.find_all_by_name("Schroeder-Jerde")
     assert_equal 1, merchants.length
     assert_equal "Schroeder-Jerde", merchants[0].name
@@ -88,11 +85,21 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_created_at
-    skip
+    date = "2012-03-27 14:53:59 UTC"
+    merchants = @merchant_repository.find_all_by_created_at(date)
+    assert_equal 9, merchants.length
+    assert_equal "Schroeder-Jerde", merchants[0].name
+    assert_equal "2012-03-27 14:53:59 UTC", merchants[0].created_at
+    assert_equal "2012-03-27 14:53:59 UTC", merchants[0].updated_at
   end
 
   def test_find_all_by_updated_at
-    skip
+    date = "2012-03-27 14:53:59 UTC"
+    merchants = @merchant_repository.find_all_by_updated_at(date)
+    assert_equal 8, merchants.length
+    assert_equal "Schroeder-Jerde", merchants[0].name
+    assert_equal "2012-03-27 14:53:59 UTC", merchants[0].created_at
+    assert_equal "2012-03-27 14:53:59 UTC", merchants[0].updated_at
   end
 
 end
