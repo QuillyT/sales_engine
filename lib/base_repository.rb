@@ -2,6 +2,8 @@ require 'csv'
 
 class BaseRepository
 
+  attr_reader :filename
+
   def initialize(filename=nil)
     @type = nil
     load(filename)
@@ -28,8 +30,14 @@ class BaseRepository
     @instance_hashes.collect { |data| @type.new(data) }
   end
 
-  def create_find_methods
-    puts type.new.public_attributes
+  def self.generate_find_methods
+    @type.new.public_attributes.each do |attribute|
+      define_method "find_by_#{attribute}" do |criteria|
+        all.find do |object|
+          object.send(attribute).to_s.downcase == criteria.to_s.downcase
+        end
+      end
+    end
   end
 
   def find_by_attribute(attribute, criteria)
@@ -80,4 +88,6 @@ class BaseRepository
   def find_all_by_updated_at(search_time)
     find_all_by_attribute(:updated_at, search_time)
   end
+
+  #generate_find_methods
 end
