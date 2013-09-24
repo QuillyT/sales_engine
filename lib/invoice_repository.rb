@@ -1,15 +1,15 @@
 require './lib/base_repository'
-require './lib/merchant'
+require './lib/invoice'
 
-class MerchantRepository < BaseRepository
+class InvoiceRepository < BaseRepository
 
   def initialize(filename=nil)
-    @type = Merchant
+    @type = Invoice
     load(filename)
   end
 
   def default_filename
-    "./data/merchants.csv"
+    "./data/invoices.csv"
   end
 
 end

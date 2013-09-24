@@ -1,6 +1,6 @@
 require 'csv'
 
-class RepositoryBase
+class BaseRepository
 
   def initialize(filename=nil)
     @type = nil
