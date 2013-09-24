@@ -1,10 +1,9 @@
 require 'csv'
-require './lib/merchant.rb'
 
-class MerchantRepository < BaseRepository
+class RepositoryBase
 
   def initialize(filename=nil)
-    @type = Merchant
+    @type = nil
     load(filename)
   end
 
@@ -14,7 +13,7 @@ class MerchantRepository < BaseRepository
   end
 
   def default_filename
-    "./data/merchants.csv"
+    nil
   end
 
   def type
@@ -29,8 +28,12 @@ class MerchantRepository < BaseRepository
     @instance_hashes.collect { |data| @type.new(data) }
   end
 
+  def create_find_methods
+    puts type.new.public_attributes
+  end
+
   def find_by_attribute(attribute, criteria)
-    all.find do |object|
+    all.find do |object| 
       object.send(attribute).to_s.downcase == criteria.to_s.downcase
     end
   end
