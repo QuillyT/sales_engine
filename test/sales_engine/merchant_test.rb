@@ -1,11 +1,20 @@
+require 'csv'
 require './test/test_helper'
 require './lib/sales_engine/merchant.rb'
 
 class MerchantTest < MiniTest::Test
+
+  def setup
+    filename = './test/fixtures/merchants.csv'
+    @data     = CSV.read filename, headers: true, header_converters: :symbol
+    @merchant = SalesEngine::Merchant.new(@data[0])
+  end
+
   def test_it_initializes
     merchant = SalesEngine::Merchant.new({})
     assert_kind_of SalesEngine::Merchant, merchant
   end
+
   def test_it_initializes_with_data
     data = {
       id: 1,
