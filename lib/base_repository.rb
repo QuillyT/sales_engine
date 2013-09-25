@@ -14,14 +14,6 @@ class BaseRepository
     @instance_hashes = CSV.read filename, headers: true, header_converters: :symbol
   end
 
-  def default_filename
-    nil
-  end
-
-  def type
-    @type
-  end
-
   def all
     @instances ||= create_instances
   end
