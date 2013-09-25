@@ -10,4 +10,7 @@ class Customer
     @updated_at = data[:updated_at]
   end
 
+  def public_attributes
+    [ :id, :first_name, :last_name, :created_at, :updated_at  ]
+  end
 end

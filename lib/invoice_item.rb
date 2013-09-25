@@ -10,5 +10,9 @@ class InvoiceItem
     @created_at = data[:created_at]
     @updated_at = data[:updated_at]
   end
+
+  def public_attributes
+    [ :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at  ]
+  end
 end
 

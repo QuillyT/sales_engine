@@ -11,4 +11,7 @@ class Invoice
     @updated_at = data[:updated_at]
   end
 
+  def public_attributes
+    [ :id, :customer_id, :merchat_id, :status, :created_at, :updated_at ]
+  end
 end

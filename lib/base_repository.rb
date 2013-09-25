@@ -30,64 +30,7 @@ class BaseRepository
     @instance_hashes.collect { |data| @type.new(data) }
   end
 
-  def self.generate_find_methods
-    @type.new.public_attributes.each do |attribute|
-      define_method "find_by_#{attribute}" do |criteria|
-        all.find do |object|
-          object.send(attribute).to_s.downcase == criteria.to_s.downcase
-        end
-      end
-    end
-  end
-
-  def find_by_attribute(attribute, criteria)
-    all.find do |object| 
-      object.send(attribute).to_s.downcase == criteria.to_s.downcase
-    end
-  end
-
-  def find_by_id(search_id)
-    find_by_attribute(:id, search_id)
-  end
-
-  def find_by_name(search_name)
-    find_by_attribute(:name, search_name)
-  end
-
-  def find_by_created_at(search_time)
-    find_by_attribute(:created_at, search_time)
-  end
-
-  def find_by_updated_at(search_time)
-    find_by_attribute(:updated_at, search_time)
-  end
-  
   def random
     all.sample
   end
-
-  def find_all_by_attribute(attribute, criteria)
-    results = all.find_all do |object|
-      object.send(attribute).to_s.downcase == criteria.to_s.downcase
-    end
-    results ||= []
-  end
-
-  def find_all_by_id(search_id)
-    find_all_by_attribute(:id, search_id)
-  end
-
-  def find_all_by_name(search_name)
-    find_all_by_attribute(:name, search_name)
-  end
-
-  def find_all_by_created_at(search_time)
-    find_all_by_attribute(:created_at, search_time)
-  end
-
-  def find_all_by_updated_at(search_time)
-    find_all_by_attribute(:updated_at, search_time)
-  end
-
-  #generate_find_methods
 end

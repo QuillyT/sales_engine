@@ -9,4 +9,8 @@ class Merchant
     @updated_at = data[:updated_at]
   end
 
+  def public_attributes
+    [ :id, :name, :created_at, :updated_at ]
+  end
+
 end
