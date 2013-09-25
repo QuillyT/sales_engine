@@ -12,6 +12,6 @@ class Invoice
   end
 
   def public_attributes
-    [ :id, :customer_id, :merchat_id, :status, :created_at, :updated_at ]
+    [ :id, :customer_id, :merchant_id, :status, :created_at, :updated_at ]
   end
 end
