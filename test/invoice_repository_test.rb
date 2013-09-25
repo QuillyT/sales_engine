@@ -50,6 +50,13 @@ class InvoiceRepositoryTest < MiniTest::Test
     assert_equal 26, invoice.merchant_id
   end
 
+  def test_find_by_created_at
+    invoice = @invoice_repository.find_by_created_at("2012-03-25 09:54:09 UTC")
+    assert_equal 1, invoice.id
+    assert_equal 1, invoice.customer_id
+    assert_equal 26, invoice.merchant_id
+  end
+
   def test_find_by_updated_at
     invoice = @invoice_repository.find_by_updated_at("2012-03-25 09:54:09 UTC")
     assert_equal 1, invoice.id
@@ -81,6 +88,12 @@ class InvoiceRepositoryTest < MiniTest::Test
   def test_find_all_by_customer_id_returns_empty_array_if_empty
     invoices = @invoice_repository.find_all_by_customer_id(12345)
     assert_equal [], invoices
+  end
+
+  def test_find_all_by_status
+    status = "shipped"
+    invoices = @invoice_repository.find_all_by_status(status)
+    assert_equal 30, invoices.length
   end
 
   def test_find_all_by_created_at
