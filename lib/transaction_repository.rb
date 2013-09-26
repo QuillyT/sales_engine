@@ -3,10 +3,11 @@ require './lib/transaction'
 
 class TransactionRepository
 
-  attr_reader :type
+  attr_reader :type, :engine
 
-  def initialize(filename=nil)
+  def initialize(filename=nil, engine = nil)
     @type = Transaction
+    @engine = engine
     load(filename)
   end
 

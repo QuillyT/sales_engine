@@ -3,10 +3,11 @@ require './lib/item'
 
 class ItemRepository
 
-  attr_reader :type
+  attr_reader :type, :engine
 
-  def initialize(filename=nil)
+  def initialize(filename=nil, engine = nil)
     @type = Item
+    @engine = engine
     load(filename)
   end
 
@@ -24,7 +25,7 @@ class ItemRepository
   end
 
   def create_instances
-    @instance_hashes.collect { |data| type.new(data) }
+    @instance_hashes.collect { |data| type.new(data, self) }
   end
 
   def random

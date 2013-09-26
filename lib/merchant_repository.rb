@@ -3,15 +3,16 @@ require './lib/merchant'
 
 class MerchantRepository
 
-  attr_reader :type
+  attr_reader :type, :engine
 
-  def initialize(filename=nil)
+  def initialize(filename=nil, engine=nil)
     @type = Merchant
+    @engine = engine
     load(filename)
   end
 
   def default_filename
-    "./data/mechants.csv"
+    "./data/merchants.csv"
   end
 
   def load(filename)
@@ -24,7 +25,7 @@ class MerchantRepository
   end
 
   def create_instances
-    @instance_hashes.collect { |data| type.new(data) }
+    @instance_hashes.collect { |data| type.new(data,self) }
   end
 
   def random

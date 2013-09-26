@@ -3,10 +3,11 @@ require './lib/customer'
 
 class CustomerRepository
 
-  attr_reader :type
+  attr_reader :type, :engine
 
-  def initialize(filename=nil)
-    @type = Customer
+  def initialize(filename=nil, engine = nil)
+    @type   = Customer
+    @engine = engine
     load(filename)
   end
 
@@ -24,7 +25,7 @@ class CustomerRepository
   end
 
   def create_instances
-    @instance_hashes.collect { |data| type.new(data) }
+    @instance_hashes.collect { |data| type.new(data, self) }
   end
 
   def random

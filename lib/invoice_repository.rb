@@ -3,10 +3,11 @@ require './lib/invoice'
 
 class InvoiceRepository
 
-  attr_reader :type
+  attr_reader :type, :engine
 
-  def initialize(filename=nil)
-    @type = Invoice
+  def initialize(filename=nil, engine = nil)
+    @type          = Invoice
+    @engine        = engine
     load(filename)
   end
 
@@ -24,7 +25,7 @@ class InvoiceRepository
   end
 
   def create_instances
-    @instance_hashes.collect { |data| type.new(data) }
+    @instance_hashes.collect { |data| type.new(data, self) }
   end
 
   def random
