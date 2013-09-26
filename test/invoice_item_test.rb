@@ -1,7 +1,17 @@
+require 'csv'
 require './test/test_helper'
-require './lib/invoice_item.rb'
+require './test/sales_engine_stub'
 
 class InvoiceItemTest < MiniTest::Test
+
+  def setup
+    filename        = './test/fixtures/invoice_items.csv'
+    @engine         = SalesEngineStub.new
+    @engine.startup
+    @data           = CSV.read filename, headers: true, header_converters: :symbol
+    @repository     = InvoiceItemRepository.new(filename, @engine)
+    @invoice_item    = InvoiceItem.new(@data[0], @repository)
+  end
 
   def test_it_initializes
     invoice_item = InvoiceItem.new
@@ -9,7 +19,7 @@ class InvoiceItemTest < MiniTest::Test
   end
 
   def test_it_initializes_with_correct_data
-    data = { 
+    data = {
       id: 1,
       item_id: 539,
       invoice_id:  1,
@@ -29,4 +39,15 @@ class InvoiceItemTest < MiniTest::Test
     assert_equal data[:updated_at], invoice_item.updated_at
   end
 
+  def test_it_returns_instance_of_invoice_associated_with_this_invoice_item
+    engine = @invoice_item.repo.engine
+    invoice = engine.invoice_repository.find_by_id(@invoice_item.invoice_id)
+    assert_equal invoice, @invoice_item.invoice
+  end
+
+  def test_it_returns_instance_of_item_associated_with_this_invoice_item
+    engine = @invoice_item.repo.engine
+    item = engine.item_repository.find_by_id(@invoice_item.item_id)
+    assert_equal item, @invoice_item.item
+  end
 end

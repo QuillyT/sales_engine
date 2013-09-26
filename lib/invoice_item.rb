@@ -16,5 +16,12 @@ class InvoiceItem
   def public_attributes
     [ :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at  ]
   end
-end
 
+  def invoice
+    repo.engine.invoice_repository.find_by_id(invoice_id)
+  end
+
+  def item
+    repo.engine.item_repository.find_by_id(item_id)
+  end
+end
