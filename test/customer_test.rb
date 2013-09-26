@@ -1,7 +1,17 @@
+require 'csv'
 require './test/test_helper'
-require './lib/customer.rb'
+require './test/sales_engine_stub'
 
 class CustomerTest < MiniTest::Test
+
+  def setup
+    filename        = './test/fixtures/items.csv'
+    @engine         = SalesEngineStub.new
+    @engine.startup
+    @data           = CSV.read filename, headers: true, header_converters: :symbol
+    @repository     = CustomerRepository.new(filename, @engine)
+    @customer    = Customer.new(@data[0], @repository)
+  end
 
   def test_it_initializes
     customer = Customer.new
@@ -24,4 +34,9 @@ class CustomerTest < MiniTest::Test
     assert_equal data[:updated_at], customer.updated_at
   end
 
+  def test_invoice_returns_a_collection_of_associated_invoice_instaces
+    engine = @customer.repo.engine
+    invoices = engine.invoice_repository.find_all_by_customer_id(@customer.id)
+    assert_equal invoices, @customer.invoices
+  end
 end

@@ -19,4 +19,12 @@ class Item
       :updated_at ]
   end
 
+  def invoice_items
+    repo.engine.invoice_item_repository.find_all_by_item_id(id)
+  end
+
+  def merchant
+    repo.engine.merchant_repository.find_by_id(merchant_id)
+  end
+
 end
