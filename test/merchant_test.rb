@@ -36,14 +36,14 @@ class MerchantTest < MiniTest::Test
 
   def test_it_returns_this_merchants_items
     engine = @merchant.repo.engine
-    items = engine.item_repository.find_by_merchant_id(@merchant.id)
-    assert_equal items, @merchant.items
+    items = engine.item_repository.find_all_by_merchant_id(@merchant.id)
+    assert_equal items.count, @merchant.items.count
   end
 
   def test_it_returns_the_invoices_associated_with_this_merchant
     engine = @merchant.repo.engine
-    invoices = engine.invoice_repository.find_by_merchant_id(@merchant.id)
-    assert_equal invoices, @merchant.invoices
+    invoices = engine.invoice_repository.find_all_by_merchant_id(@merchant.id)
+    assert_equal invoices.count, @merchant.invoices.count
   end
   
 end
