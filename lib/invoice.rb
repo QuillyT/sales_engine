@@ -38,4 +38,8 @@ class Invoice
       repo.engine.item_repository.find_by_id(invoice_item.item_id)
     end
   end
+
+  def revenue
+    items.inject(0) { |sum, item| sum += (item.unit_price * item.quantity) }
+  end
 end

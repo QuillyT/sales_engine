@@ -45,5 +45,13 @@ class MerchantTest < MiniTest::Test
     invoices = engine.invoice_repository.find_all_by_merchant_id(@merchant.id)
     assert_equal invoices.count, @merchant.invoices.count
   end
+
+  def test_it_returns_the_revenue_for_this_merchant
+    merchant_id    = 8
+    transaction_id = 11
+    invoice_id     = 12
+    cents          = 1016156
+    assert_equal cents, @merchant.revenue
+  end
   
 end
