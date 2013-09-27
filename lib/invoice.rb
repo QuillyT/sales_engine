@@ -4,13 +4,13 @@ class Invoice
               :updated_at, :repo
 
   def initialize(data = {}, repo = nil)
-    @id = data[:id].to_i
+    @id          = data[:id].to_i
     @customer_id = data[:customer_id].to_i
     @merchant_id = data[:merchant_id].to_i
-    @status = data[:status]
-    @created_at = data[:created_at]
-    @updated_at = data[:updated_at]
-    @repo = repo
+    @status      = data[:status]
+    @created_at  = data[:created_at]
+    @updated_at  = data[:updated_at]
+    @repo        = repo
   end
 
   def public_attributes
