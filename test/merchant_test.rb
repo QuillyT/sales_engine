@@ -47,15 +47,16 @@ class MerchantTest < MiniTest::Test
   end
 
   def test_it_returns_an_array_of_successful_invoices
-   34 
+    count    = 1
+    merchant = Merchant.new(@data[33],@repository)
+    assert_equal count, merchant.successful_invoices.length
   end
 
   def test_it_returns_the_revenue_for_this_merchant
-    merchant_id    = 8
-    transaction_id = 11
-    invoice_id     = 12
-    cents          = 1016156
-    assert_equal cents, @merchant.revenue
+    #skip
+    merchant = Merchant.new(@data[33],@repository)
+    cents    = 1063422
+    assert_equal cents, merchant.revenue
   end
   
 end

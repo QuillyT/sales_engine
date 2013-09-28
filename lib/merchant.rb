@@ -23,22 +23,11 @@ class Merchant
   end
 
   def successful_invoices
-    invoices.find_all do |invoice|
-      transaction = invoice.transactions.find do |transaction| 
-        transaction.result == "success"
-      end
-      ! transaction.nil?
-    end
+    invoices.find_all { |invoice| invoice.successful? }
   end
 
   def revenue
-    sum = successful_invoices.inject(0) do |sum, invoice|
-      items = repo.engine.invoice_item_repository.find_all_by_invoice_id(invoice.id)
-      sum += items.inject(0) do |item_sum, item|
-        item_sum += (item.unit_price * item.quantity)
-      end
-    end
-    sum
+    successful_invoices.inject(0) { |sum, invoice| sum += invoice.total }
   end
 
 end
