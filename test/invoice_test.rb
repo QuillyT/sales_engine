@@ -70,4 +70,18 @@ class InvoiceTest < MiniTest::Test
     end
     assert_equal items, @invoice.items
   end
+
+  def test_it_returns_the_total_for_this_invoice
+    total = 2106777
+    assert_equal total, @invoice.total
+  end
+
+  def test_it_returns_true_if_successful
+    assert @invoice.successful?, "Expected invoice to be successful"
+  end
+
+  def test_it_returns_false_if_failed
+    invoice = Invoice.new(@data[12], @repository)
+    refute invoice.successful?, "Expected invoice to not be successful"
+  end
 end

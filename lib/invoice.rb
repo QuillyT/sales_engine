@@ -39,7 +39,16 @@ class Invoice
     end
   end
 
-  def revenue
-    items.inject(0) { |sum, item| sum += (item.unit_price * item.quantity) }
+  def total
+    invoice_items.inject(0) do |total, invoice_item| 
+      total += invoice_item.total
+    end
   end
+
+  def successful?
+    transactions.any? do |transaction|
+      transaction.result == "success"
+    end
+  end
+
 end

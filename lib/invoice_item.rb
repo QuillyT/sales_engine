@@ -24,4 +24,8 @@ class InvoiceItem
   def item
     repo.engine.item_repository.find_by_id(item_id)
   end
+
+  def total
+    quantity * unit_price
+  end
 end

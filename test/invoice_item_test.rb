@@ -50,4 +50,9 @@ class InvoiceItemTest < MiniTest::Test
     item = engine.item_repository.find_by_id(@invoice_item.item_id)
     assert_equal item, @invoice_item.item
   end
+
+  def test_it_returns_the_total_for_this_invoice_item
+    data = 68175
+    assert_equal data, @invoice_item.total
+  end
 end
