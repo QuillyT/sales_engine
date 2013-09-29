@@ -102,7 +102,7 @@ class InvoiceItemRepositoryTest < MiniTest::Test
 
   def test_find_all_by_quantity
     items = @repository.find_all_by_quantity(6)
-    assert_equal 2, items.count
+    assert_equal 22, items.count
   end
 
   def test_find_all_by_unit_price

@@ -25,13 +25,13 @@ class MerchantRepository
   end
 
   def create_instances
-    @instance_hashes.collect { |data| type.new(data,self) }
+    @instance_hashes.collect { |data| type.new(data, self) }
   end
 
   def random
     all.sample
   end
-
+  
   Merchant.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|

@@ -93,7 +93,7 @@ class InvoiceRepositoryTest < MiniTest::Test
   def test_find_all_by_status
     status = "shipped"
     invoices = @invoice_repository.find_all_by_status(status)
-    assert_equal 30, invoices.length
+    assert_equal 79, invoices.length
   end
 
   def test_find_all_by_created_at

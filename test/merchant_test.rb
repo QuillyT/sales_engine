@@ -12,7 +12,7 @@ class MerchantTest < MiniTest::Test
     @engine.startup
     @data       = CSV.read filename, headers: true, header_converters: :symbol
     @repository = MerchantRepository.new(filename, @engine)
-    @merchant   = Merchant.new(@data[0],@repository)
+    @merchant   = Merchant.new(@data[0], @repository)
   end
 
   def test_it_initializes
@@ -41,7 +41,7 @@ class MerchantTest < MiniTest::Test
   end
 
   def test_it_returns_the_invoices_associated_with_this_merchant
-    engine = @merchant.repo.engine
+    engine   = @merchant.repo.engine
     invoices = engine.invoice_repository.find_all_by_merchant_id(@merchant.id)
     assert_equal invoices.count, @merchant.invoices.count
   end

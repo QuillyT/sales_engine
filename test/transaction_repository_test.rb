@@ -90,7 +90,7 @@ class TransactionRepositoryTest < MiniTest::Test
   def test_find_all_by_result
     #skip
     items = @repository.find_all_by_result("failed")
-    assert_equal 4, items.length
+    assert_equal 16, items.length
   end
 
   def test_find_all_by_credit_card_number
@@ -104,7 +104,7 @@ class TransactionRepositoryTest < MiniTest::Test
     #skip
     date = ""
     items = @repository.find_all_by_credit_card_expiration_date(date)
-    assert_equal 28, items.count
+    assert_equal 100, items.count
   end
 
   def test_find_all_by_invoice_id_returns_empty_array_if_empty

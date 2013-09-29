@@ -87,14 +87,14 @@ class ItemRepositoryTest < MiniTest::Test
     #skip
     date = "2012-03-27 14:53:59 UTC"
     items = @repository.find_all_by_created_at(date)
-    assert_equal 20, items.length
+    assert_equal 100, items.length
   end
 
   def test_find_all_by_updated_at
     #skip
     date = "2012-03-27 14:53:59 UTC"
     items = @repository.find_all_by_updated_at(date)
-    assert_equal 20, items.length
+    assert_equal 100, items.length
   end
 
 end
