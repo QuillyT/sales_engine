@@ -31,6 +31,16 @@ class MerchantRepository
   def random
     all.sample
   end
+
+  def most_revenue(num = nil)
+    num ||= all.count
+    all.sort_by { |merchant| merchant.revenue }.reverse[0...num]
+  end
+
+  def most_items(num = nil)
+    num ||= all.count
+    all.sort_by { |merchant| merchant.quantity }.reverse[0...num]
+  end
   
   Merchant.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|

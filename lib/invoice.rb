@@ -25,6 +25,12 @@ class Invoice
     repo.engine.invoice_item_repository.find_all_by_invoice_id(id)
   end
 
+  def quantity
+    invoice_items.inject(0) do |sum, invoice_item| 
+      sum += invoice_item.quantity
+    end
+  end
+
   def customer
     repo.engine.customer_repository.find_by_id(customer_id)
   end

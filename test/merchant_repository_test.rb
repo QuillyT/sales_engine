@@ -107,4 +107,30 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal "2012-03-27 14:53:59 UTC", merchants[0].updated_at
   end
 
+  def test_most_revenue_returns_an_array_of_merchants
+    assert_kind_of Merchant, @merchant_repository.most_revenue(1).first
+  end
+
+  def test_most_revenue_returns_the_correct_count_of_merchants
+    num = 5
+    assert_equal num, @merchant_repository.most_revenue(num).count
+  end
+
+  def test_most_revenue_returns_correct_values_of_merchants
+    desired_results = [62,84,86,79,41]
+    results = @merchant_repository.most_revenue(5).collect { |m| m.id }
+    assert_equal desired_results, results
+  end
+
+  def test_most_revenue_returns_all_merchants_sorted_if_nil_param
+    count = @merchant_repository.all.count
+    assert_equal count, @merchant_repository.most_revenue.count
+  end
+
+  def test_most_items_returns_merchants_ordered_by_item_sales
+    desired_quantities = [59, 57, 54, 51, 48]
+    results = @merchant_repository.most_items(5).collect { |m| m.quantity }
+    assert_equal desired_quantities, results
+  end
+
 end
