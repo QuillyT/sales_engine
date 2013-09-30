@@ -18,6 +18,10 @@ class Merchant
     repo.engine.item_repository.find_all_by_merchant_id(id)
   end
 
+  def quantity
+    successful_invoices.inject(0) { |sum, invoice| sum += invoice.quantity }
+  end
+
   def invoices
     repo.engine.invoice_repository.find_all_by_merchant_id(id)
   end

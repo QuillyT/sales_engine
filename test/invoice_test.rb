@@ -84,4 +84,11 @@ class InvoiceTest < MiniTest::Test
     invoice = Invoice.new(@data[12], @repository)
     refute invoice.successful?, "Expected invoice to not be successful"
   end
+
+  def test_it_returns_the_total_quantity_of_its_invoice_items
+    invoice = Invoice.new(@data[0], @repository)
+    quantity = 47
+    assert_equal quantity, invoice.quantity
+  end
+
 end
