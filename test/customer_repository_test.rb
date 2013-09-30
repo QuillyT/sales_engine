@@ -1,5 +1,5 @@
 require './test/test_helper'
-require './lib/customer_repository.rb'
+require './test/customer_repository.rb'
 
 class CustomerRepositoryTest < MiniTest::Test
 
@@ -51,14 +51,14 @@ class CustomerRepositoryTest < MiniTest::Test
 
   def test_find_by_created_at
     #skip
-    time = "2012-03-27 14:54:09 UTC" 
+    time = "2012-03-27 14:54:09 UTC"
     item = @repository.find_by_created_at(time)
     assert_equal time, item.created_at
   end
 
   def test_find_by_updated_at
     #skip
-    time = "2012-03-27 14:54:09 UTC" 
+    time = "2012-03-27 14:54:09 UTC"
     item = @repository.find_by_updated_at(time)
     assert_equal time, item.updated_at
   end
@@ -75,7 +75,7 @@ class CustomerRepositoryTest < MiniTest::Test
     items = @repository.find_all_by_id(1)
     assert_equal 1, items.length
   end
-  
+
   def test_find_all_by_first_name
     #skip
     items = @repository.find_all_by_first_name("Joey")
@@ -96,14 +96,14 @@ class CustomerRepositoryTest < MiniTest::Test
 
   def test_find_all_by_created_at
     #skip
-    date = "2012-03-27 14:54:09 UTC" 
+    date = "2012-03-27 14:54:09 UTC"
     items = @repository.find_all_by_created_at(date)
     assert_equal 1, items.length
   end
 
   def test_find_all_by_updated_at
     #skip
-    date = "2012-03-27 14:54:09 UTC" 
+    date = "2012-03-27 14:54:09 UTC"
     items = @repository.find_all_by_updated_at(date)
     assert_equal 1, items.length
   end

@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/transaction'
+require_relative 'transaction'
 
 class TransactionRepository
 

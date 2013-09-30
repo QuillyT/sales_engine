@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/merchant'
+require_relative 'merchant'
 
 class MerchantRepository
 
@@ -31,7 +31,7 @@ class MerchantRepository
   def random
     all.sample
   end
-  
+
   Merchant.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|

@@ -1,5 +1,5 @@
 require 'csv'
-require './lib/customer'
+require_relative 'customer'
 
 class CustomerRepository
 
