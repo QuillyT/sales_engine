@@ -1,7 +1,18 @@
+require 'csv'
 require './test/test_helper'
-require './lib/item.rb'
+require './test/sales_engine_stub'
+
 
 class ItemTest < MiniTest::Test
+
+  def setup
+    filename        = './test/fixtures/items.csv'
+    @engine         = SalesEngineStub.new
+    @engine.startup
+    @data           = CSV.read filename, headers: true, header_converters: :symbol
+    @repository     = ItemRepository.new(filename, @engine)
+    @item           = Item.new(@data[0], @repository)
+  end
 
   def test_it_initializes
     item = Item.new({})
@@ -26,6 +37,16 @@ class ItemTest < MiniTest::Test
     assert_equal data[:merchant_id], item.merchant_id
     assert_equal data[:created_at],  item.created_at
     assert_equal data[:updated_at],  item.updated_at
+  end
+
+  def test_it_returns_invoice_items_for_this_item
+    count = 1  
+    assert_equal count, @item.invoice_items.count
+  end
+
+  def test_it_returns_the_merchant_for_this_item
+    merchant_id = 1
+    assert_equal merchant_id, @item.merchant.id
   end
 
 end

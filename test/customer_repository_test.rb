@@ -1,5 +1,5 @@
 require './test/test_helper'
-require './test/customer_repository.rb'
+require './lib/customer_repository.rb'
 
 class CustomerRepositoryTest < MiniTest::Test
 

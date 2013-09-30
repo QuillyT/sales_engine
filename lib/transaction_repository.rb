@@ -25,7 +25,7 @@ class TransactionRepository
   end
 
   def create_instances
-    @instance_hashes.collect { |data| type.new(data) }
+    @instance_hashes.collect { |data| type.new(data, self) }
   end
 
   def random

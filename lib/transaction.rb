@@ -21,6 +21,6 @@ class Transaction
   end
 
   def invoice
-    repo.engine.invoice_repository.find_by_invoice_id(id)
+    repo.engine.invoice_repository.find_by_id(invoice_id)
   end
 end
