@@ -14,4 +14,8 @@ class Customer
   def public_attributes
     [ :id, :first_name, :last_name, :created_at, :updated_at  ]
   end
+
+  def invoices
+    repo.engine.invoice_repository.find_all_by_customer_id(id)
+  end
 end

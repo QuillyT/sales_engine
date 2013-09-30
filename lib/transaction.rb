@@ -19,4 +19,8 @@ class Transaction
     [ :id, :invoice_id, :credit_card_number, :credit_card_expiration_date,
       :result, :created_at, :updated_at  ]
   end
+
+  def invoice
+    repo.engine.invoice_repository.find_by_invoice_id(id)
+  end
 end
