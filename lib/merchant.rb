@@ -65,7 +65,7 @@ class Merchant
   end
 
   def currency_for(cents)
-    BigDecimal.new(cents.to_s.insert(-3,"."))
+    BigDecimal.new(cents.to_s.rjust(3, "0").insert(-3,"."))
   end
 
   def successful_invoices_revenue

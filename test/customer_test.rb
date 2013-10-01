@@ -39,4 +39,14 @@ class CustomerTest < MiniTest::Test
     assert_equal count, @customer.invoices.count
   end
 
+  def test_it_returns_an_array_of_its_transactions
+    count = 7 
+    assert_equal count, @customer.transactions.count
+  end
+
+  def test_it_returns_this_customers_favorite_merchant
+    merchant_id = 26
+    assert_equal merchant_id, @customer.favorite_merchant.id
+  end
+
 end

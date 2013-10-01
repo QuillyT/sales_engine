@@ -34,12 +34,16 @@ class MerchantRepository
 
   def most_revenue(num = nil)
     num ||= all.count
-    all.sort_by { |merchant| merchant.revenue }.reverse[0...num]
+    all.sort_by { |merchant| merchant.revenue }.reverse[0, num]
   end
 
   def most_items(num = nil)
     num ||= all.count
-    all.sort_by { |merchant| merchant.quantity }.reverse[0...num]
+    all.sort_by { |merchant| merchant.quantity }.reverse[0, num]
+  end
+
+  def revenue(date)
+    all.inject(0) { |revenue, merchant| revenue += merchant.revenue(date) }
   end
   
   Merchant.new.public_attributes.each do |attribute|

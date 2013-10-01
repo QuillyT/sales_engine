@@ -133,4 +133,10 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal desired_quantities, results
   end
 
+  def test_it_returns_total_revenue_for_a_date
+    revenue = BigDecimal.new("33885.71")
+    date = Date.parse "2012-03-25 09:54:09 UTC"
+    assert_equal revenue, @merchant_repository.revenue(date)
+  end
+
 end

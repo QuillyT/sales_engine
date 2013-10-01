@@ -32,7 +32,7 @@ class CustomerRepository
     all.sample
   end
 
-  Customer.new.public_attributes.each do |attribute|
+ Customer.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|
         object.send(attribute).to_s.downcase == criteria.to_s.downcase

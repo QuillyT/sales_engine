@@ -32,6 +32,16 @@ class ItemRepository
     all.sample
   end
 
+  def most_items(num)
+    num ||= all.count
+    all.sort_by { |item| item.quantity_sold }.reverse[0,num]
+  end
+
+  def most_revenue(num)
+    num ||= all.count
+    all.sort_by { |item| item.revenue }.reverse[0, num]
+  end
+
   Item.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|

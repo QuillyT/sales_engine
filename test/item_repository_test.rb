@@ -1,11 +1,14 @@
 require './test/test_helper'
-require './lib/item_repository.rb'
+require './test/sales_engine_stub'
+#require './lib/sales_engine'
 
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
-    @fixture = './test/fixtures/items.csv'
-    @repository = ItemRepository.new(@fixture)
+    @engine              = SalesEngineStub.new
+    @engine.startup
+    @fixture             = './test/fixtures/items.csv'
+    @repository = @engine.item_repository
   end
 
   def test_it_initializes
@@ -95,6 +98,22 @@ class ItemRepositoryTest < MiniTest::Test
     date = "2012-03-27 14:53:59 UTC"
     items = @repository.find_all_by_updated_at(date)
     assert_equal 100, items.length
+  end
+
+  def test_it_returns_most_items_for_n_items
+    n        = 5
+    items    = @repository.most_items(n)
+    item_ids = [37, 2, 9, 52, 6]
+    assert_equal n, items.length
+    assert_equal item_ids, items.collect { |item| item.id }
+  end
+
+  def test_it_returns_most_revenue_for_n_items
+    n        = 5
+    items    = @repository.most_revenue(n)
+    item_ids = [52, 2, 9, 1, 7]
+    assert_equal n, items.length
+    assert_equal item_ids, items.collect { |item| item.id }
   end
 
 end
