@@ -57,4 +57,10 @@ class Invoice
     end
   end
 
+  def pending?
+    transactions.all? do |transaction|
+      transaction.result != "success"
+    end
+  end
+
 end

@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 class Merchant
 
   attr_reader :id, :name, :created_at, :updated_at, :repo
@@ -30,8 +32,54 @@ class Merchant
     invoices.find_all { |invoice| invoice.successful? }
   end
 
-  def revenue
-    successful_invoices.inject(0) { |sum, invoice| sum += invoice.total }
+  def pending_invoices
+    invoices.find_all { |invoice| invoice.pending? }
+  end
+
+  def favorite_customer
+    repo.engine.customer_repository.find_by_id(favorite_customer_id)
+  end
+
+  def customer_counts
+    successful_invoices.each_with_object(Hash.new(0)) do |invoice, counts|
+      counts[invoice.customer_id] += 1
+    end
+  end
+
+  def favorite_customer_id
+    customer_counts.max_by { |customer_id, count| count }[0]
+  end
+
+  def invoices_by_date(date)
+    successful_invoices.find_all do |invoice| 
+      Date.parse(invoice.created_at) == date
+    end
+  end
+
+  def revenue(date = nil)
+    if date.nil?
+      currency_for successful_invoices_revenue
+    else
+      currency_for date_invoices_revenue(date)
+    end
+  end
+
+  def currency_for(cents)
+    BigDecimal.new(cents.to_s.insert(-3,"."))
+  end
+
+  def successful_invoices_revenue
+   successful_invoices.inject(0) { |sum, invoice| sum += invoice.total }
+  end
+
+  def date_invoices_revenue(date)
+    invoices_by_date(date).inject(0) { |sum, invoice| sum += invoice.total }
+  end
+
+  def customers_with_pending_invoices
+    pending_invoices.collect do |invoice| 
+      repo.engine.customer_repository.find_by_id(invoice.customer_id)
+    end
   end
 
 end

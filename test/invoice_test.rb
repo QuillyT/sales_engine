@@ -91,4 +91,10 @@ class InvoiceTest < MiniTest::Test
     assert_equal quantity, invoice.quantity
   end
 
+  def test_it_returns_true_if_pending
+    failed_invoice = Invoice.new(@data[12], @repository)
+    assert failed_invoice.pending?, "Expected invoice to be pending" 
+    refute @invoice.pending?, "Expected invoice to be pending"
+  end
+
 end
