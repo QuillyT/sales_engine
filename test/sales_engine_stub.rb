@@ -6,12 +6,12 @@ class SalesEngineStub < SalesEngine
               :invoice_item_repository, :item_repository, :merchant_repository,
               :transaction_repository
   def startup
-    @customer_repository     ||= CustomerRepository.new("./test/fixtures/customers.csv", self)
-    @invoice_repository      ||= InvoiceRepository.new("./test/fixtures/invoices.csv", self)
-    @invoice_item_repository ||= InvoiceItemRepository.new("./test/fixtures/invoice_items.csv", self)
-    @item_repository         ||= ItemRepository.new("./test/fixtures/items.csv", self)
-    @merchant_repository     ||= MerchantRepository.new("./test/fixtures/merchants.csv", self)
-    @transaction_repository  ||= TransactionRepository.new("./test/fixtures/transactions.csv", self)
+    @customer_repository     ||= CustomerRepository.new(self, "./test/fixtures/customers.csv")
+    @invoice_repository      ||= InvoiceRepository.new(self, "./test/fixtures/invoices.csv")
+    @invoice_item_repository ||= InvoiceItemRepository.new(self, "./test/fixtures/invoice_items.csv")
+    @item_repository         ||= ItemRepository.new(self, "./test/fixtures/items.csv")
+    @merchant_repository     ||= MerchantRepository.new(self, "./test/fixtures/merchants.csv")
+    @transaction_repository  ||= TransactionRepository.new(self, "./test/fixtures/transactions.csv")
   end
 
 end

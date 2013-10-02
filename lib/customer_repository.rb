@@ -5,7 +5,7 @@ class CustomerRepository
 
   attr_reader :type, :engine
 
-  def initialize(filename=nil, engine = nil)
+  def initialize(engine, filename = default_filename)
     @type   = Customer
     @engine = engine
     load(filename)
@@ -16,8 +16,8 @@ class CustomerRepository
   end
 
   def load(filename)
-    filename ||= default_filename
-    @instance_hashes = CSV.read filename, headers: true, header_converters: :symbol
+    @instance_hashes = CSV.read filename, headers: true,
+                                header_converters: :symbol
   end
 
   def all

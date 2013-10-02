@@ -1,6 +1,6 @@
 class Invoice
 
-  attr_reader :id, :customer_id, :merchant_id, :status, :created_at, 
+  attr_reader :id, :customer_id, :merchant_id, :status, :created_at,
               :updated_at, :repo
 
   def initialize(data = {}, repo = nil)
@@ -26,7 +26,7 @@ class Invoice
   end
 
   def quantity
-    invoice_items.inject(0) do |sum, invoice_item| 
+    invoice_items.inject(0) do |sum, invoice_item|
       sum += invoice_item.quantity
     end
   end
@@ -46,7 +46,7 @@ class Invoice
   end
 
   def total
-    invoice_items.inject(0) do |total, invoice_item| 
+    invoice_items.inject(0) do |total, invoice_item|
       total += invoice_item.total
     end
   end

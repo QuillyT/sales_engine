@@ -12,7 +12,7 @@ class Merchant
     @repo       = repo
   end
 
-  def public_attributes
+  def self.public_attributes
     [ :id, :name, :created_at, :updated_at ]
   end
 
@@ -51,7 +51,7 @@ class Merchant
   end
 
   def invoices_by_date(date)
-    successful_invoices.find_all do |invoice| 
+    successful_invoices.find_all do |invoice|
       Date.parse(invoice.created_at) == date
     end
   end
@@ -73,7 +73,7 @@ class Merchant
   end
 
   def customers_with_pending_invoices
-    pending_invoices.collect do |invoice| 
+    pending_invoices.collect do |invoice|
       repo.engine.customer_repository.find_by_id(invoice.customer_id)
     end
   end

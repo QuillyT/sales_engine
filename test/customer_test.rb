@@ -9,7 +9,7 @@ class CustomerTest < MiniTest::Test
     @engine         = SalesEngineStub.new
     @engine.startup
     @data           = CSV.read filename, headers: true, header_converters: :symbol
-    @repository     = CustomerRepository.new(filename, @engine)
+    @repository     = CustomerRepository.new(@engine, filename)
     @customer        = Customer.new(@data[0], @repository)
   end
 

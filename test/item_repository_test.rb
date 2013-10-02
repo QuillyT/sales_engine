@@ -4,9 +4,8 @@ require './test/sales_engine_stub'
 class ItemRepositoryTest < MiniTest::Test
 
   def setup
-    @engine              = SalesEngineStub.new
+    @engine = SalesEngineStub.new
     @engine.startup
-    @fixture             = './test/fixtures/items.csv'
     @repository = @engine.item_repository
   end
 

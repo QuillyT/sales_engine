@@ -46,7 +46,7 @@ class Item
   end
 
   def best_invoice_item
-    successful_invoice_items.sort_by { |invoice_item| 
+    successful_invoice_items.sort_by { |invoice_item|
       invoice_item.quantity
     }.reverse[0]
   end
@@ -56,13 +56,13 @@ class Item
   end
 
   def quantity_sold
-    successful_invoice_items.inject(0) do |sum, invoice_item| 
+    successful_invoice_items.inject(0) do |sum, invoice_item|
       sum += invoice_item.quantity
     end
   end
 
   def revenue
-    successful_invoice_items.inject(0) do |sum, invoice_item| 
+    successful_invoice_items.inject(0) do |sum, invoice_item|
       sum += invoice_item.total
     end
   end

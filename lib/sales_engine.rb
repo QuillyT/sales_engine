@@ -16,12 +16,12 @@ class SalesEngine
   end
 
   def startup
-    @customer_repository     ||= CustomerRepository.new(nil, self)
-    @invoice_repository      ||= InvoiceRepository.new(nil, self)
-    @invoice_item_repository ||= InvoiceItemRepository.new(nil, self)
-    @item_repository         ||= ItemRepository.new(nil, self)
-    @merchant_repository     ||= MerchantRepository.new(nil, self)
-    @transaction_repository  ||= TransactionRepository.new(nil, self)
+    @customer_repository     ||= CustomerRepository.new(self)
+    @invoice_repository      ||= InvoiceRepository.new(self)
+    @invoice_item_repository ||= InvoiceItemRepository.new(self)
+    @item_repository         ||= ItemRepository.new(self)
+    @merchant_repository     ||= MerchantRepository.new(self)
+    @transaction_repository  ||= TransactionRepository.new(self)
   end
 
 end

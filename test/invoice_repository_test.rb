@@ -7,7 +7,7 @@ class InvoiceRepositoryTest < MiniTest::Test
     @fixture             = './test/fixtures/invoices.csv'
     @engine              = SalesEngineStub.new
     @engine.startup
-    @invoice_repository  = InvoiceRepository.new(@fixture, @engine)
+    @invoice_repository  = InvoiceRepository.new(@engine, @fixture)
   end
 
   def test_it_initializes

@@ -9,7 +9,7 @@ class MerchantTest < MiniTest::Test
     @engine     = SalesEngineStub.new
     @engine.startup
     @data       = CSV.read filename, headers: true, header_converters: :symbol
-    @repository = MerchantRepository.new(filename, @engine)
+    @repository = MerchantRepository.new(@engine, filename)
     @merchant   = Merchant.new(@data[0], @repository)
   end
 

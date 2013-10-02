@@ -6,7 +6,6 @@ class TransactionTest < MiniTest::Test
   def setup
     engine         = SalesEngineStub.new
     engine.startup
-    filename       = "./test/fixtures/transactions.csv"
     repo           = engine.transaction_repository
     @transaction   = repo.all.first
   end

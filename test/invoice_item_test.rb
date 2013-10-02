@@ -5,12 +5,12 @@ require './test/sales_engine_stub'
 class InvoiceItemTest < MiniTest::Test
 
   def setup
-    filename        = './test/fixtures/invoice_items.csv'
-    @engine         = SalesEngineStub.new
+    filename = './test/fixtures/invoice_items.csv'
+    @engine  = SalesEngineStub.new
     @engine.startup
-    @data           = CSV.read filename, headers: true, header_converters: :symbol
-    @repository     = InvoiceItemRepository.new(filename, @engine)
-    @invoice_item    = InvoiceItem.new(@data[0], @repository)
+    @data         = CSV.read filename, headers: true, header_converters: :symbol
+    @repository   = InvoiceItemRepository.new(@engine, filename)
+    @invoice_item = InvoiceItem.new(@data[0], @repository)
   end
 
   def test_it_initializes

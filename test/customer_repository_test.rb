@@ -1,12 +1,15 @@
 require './test/test_helper'
-require './lib/customer_repository.rb'
+require './test/sales_engine_stub'
+
 
 class CustomerRepositoryTest < MiniTest::Test
 
   def setup
     @fixture = './test/fixtures/customers.csv'
-    @repository = CustomerRepository.new(@fixture)
+    @engine              = SalesEngineStub.new
+    @repository = CustomerRepository.new(@engine, @fixture)
   end
+
 
   def test_it_initializes
     #skip

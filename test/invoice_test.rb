@@ -9,7 +9,7 @@ class InvoiceTest < MiniTest::Test
     @engine         = SalesEngineStub.new
     @engine.startup
     @data           = CSV.read filename, headers: true, header_converters: :symbol
-    @repository     = InvoiceRepository.new(filename, @engine)
+    @repository     = InvoiceRepository.new(@engine, filename)
     @invoice        = Invoice.new(@data[0], @repository)
   end
 

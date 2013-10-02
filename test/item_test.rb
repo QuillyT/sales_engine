@@ -10,7 +10,7 @@ class ItemTest < MiniTest::Test
     @engine         = SalesEngineStub.new
     @engine.startup
     @data           = CSV.read filename, headers: true, header_converters: :symbol
-    @repository     = ItemRepository.new(filename, @engine)
+    @repository     = ItemRepository.new(@engine, filename)
     @item           = Item.new(@data[0], @repository)
   end
 

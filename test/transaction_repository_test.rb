@@ -1,11 +1,13 @@
 require './test/test_helper'
-require './lib/transaction_repository'
+require './test/sales_engine_stub'
 
 class TransactionRepositoryTest < MiniTest::Test
 
   def setup
+    @engine = SalesEngineStub.new
+    @engine.startup
     @fixture = './test/fixtures/transactions.csv'
-    @repository = TransactionRepository.new(@fixture)
+    @repository = TransactionRepository.new(@engine, @fixture)
   end
 
   def test_it_initializes

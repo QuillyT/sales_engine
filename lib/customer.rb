@@ -38,7 +38,7 @@ class Customer
   end
 
   def transactions
-    invoices.collect { |invoice| 
+    invoices.collect { |invoice|
       repo.engine.transaction_repository.find_all_by_invoice_id(invoice.id)
     }.flatten
   end

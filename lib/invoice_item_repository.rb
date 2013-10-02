@@ -5,7 +5,7 @@ class InvoiceItemRepository
 
   attr_reader :type, :engine
 
-  def initialize(filename=nil, engine = nil)
+  def initialize(engine, filename = default_filename)
     @type = InvoiceItem
     @engine = engine
     load(filename)
@@ -16,8 +16,8 @@ class InvoiceItemRepository
   end
 
   def load(filename)
-    filename ||= default_filename
-    @instance_hashes = CSV.read filename, headers: true, header_converters: :symbol
+    @instance_hashes = CSV.read filename, headers: true,
+                                header_converters: :symbol
   end
 
   def all
@@ -45,18 +45,22 @@ class InvoiceItemRepository
   end
 
   def invoice_item_counts(invoice_data)
-    invoice_data[:items].each_with_object(Hash.new(0)) do |item, counts| 
+    invoice_data[:items].each_with_object(Hash.new(0)) do |item, counts|
       counts[item] += 1
     end
   end
 
   def create(data)
     data[:id] = all.count + 1
-    data[:created_at] = Time.now.utc
-    data[:updated_at] = Time.now.utc
+    data[:created_at] = time_now
+    data[:updated_at] = time_now
     invoice_item = InvoiceItem.new(data,self)
     all << invoice_item
     invoice_item
+  end
+
+  def time_now
+    Time.now.utc
   end
 
   InvoiceItem.new.public_attributes.each do |attribute|

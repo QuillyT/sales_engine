@@ -5,7 +5,7 @@ class TransactionRepository
 
   attr_reader :type, :engine
 
-  def initialize(filename=nil, engine = nil)
+  def initialize(engine, filename = default_filename)
     @type = Transaction
     @engine = engine
     load(filename)
@@ -16,8 +16,8 @@ class TransactionRepository
   end
 
   def load(filename)
-    filename ||= default_filename
-    @instance_hashes = CSV.read filename, headers: true, header_converters: :symbol
+    @instance_hashes = CSV.read filename, headers: true,
+                                header_converters: :symbol
   end
 
   def all
@@ -34,9 +34,13 @@ class TransactionRepository
 
   def create(transaction_data)
     transaction_data[:id]         = all.count+1
-    transaction_data[:created_at] = Time.now.utc
-    transaction_data[:updated_at] = Time.now.utc
-    all << Transaction.new(transaction_data, self)  
+    transaction_data[:created_at] = time_now
+    transaction_data[:updated_at] = time_now
+    all << Transaction.new(transaction_data, self)
+  end
+
+  def time_now
+    Time.now.utc
   end
 
   Transaction.new.public_attributes.each do |attribute|

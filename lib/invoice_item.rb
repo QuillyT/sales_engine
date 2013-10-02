@@ -16,7 +16,8 @@ class InvoiceItem
   end
 
   def public_attributes
-    [ :id, :item_id, :invoice_id, :quantity, :unit_price, :created_at, :updated_at  ]
+    [ :id, :item_id, :invoice_id, :quantity,
+      :unit_price, :created_at, :updated_at  ]
   end
 
   def convert_unit_price(cents)
