@@ -13,7 +13,7 @@ class Invoice
     @repo        = repo
   end
 
-  def public_attributes
+  def self.public_attributes
     [ :id, :customer_id, :merchant_id, :status, :created_at, :updated_at ]
   end
 

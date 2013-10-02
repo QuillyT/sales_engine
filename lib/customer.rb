@@ -11,7 +11,7 @@ class Customer
     @repo = repo
   end
 
-  def public_attributes
+  def self.public_attributes
     [ :id, :first_name, :last_name, :created_at, :updated_at  ]
   end
 
