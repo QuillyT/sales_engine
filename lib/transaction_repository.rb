@@ -32,6 +32,13 @@ class TransactionRepository
     all.sample
   end
 
+  def create(transaction_data)
+    transaction_data[:id]         = all.count+1
+    transaction_data[:created_at] = Time.now.utc
+    transaction_data[:updated_at] = Time.now.utc
+    all << Transaction.new(transaction_data, self)  
+  end
+
   Transaction.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|

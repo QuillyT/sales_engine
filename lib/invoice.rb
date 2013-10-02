@@ -63,4 +63,9 @@ class Invoice
     end
   end
 
+  def charge(transaction_data)
+    transaction_data[:invoice_id] = id
+    repo.engine.transaction_repository.create(transaction_data)
+  end
+
 end

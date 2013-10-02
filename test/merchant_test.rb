@@ -53,33 +53,27 @@ class MerchantTest < MiniTest::Test
   def test_it_returns_the_revenue_for_this_merchant
     #skip
     merchant = Merchant.new(@data[33], @repository)
-    cents    = BigDecimal.new("10634.22")
-    assert_equal cents, merchant.revenue
+    revenue    = BigDecimal.new("10634.22")
+    assert_equal revenue, merchant.revenue
   end
 
   def test_it_returns_successful_invoice_revenue
     merchant = Merchant.new(@data[33], @repository)
-    cents    = 1063422
-    assert_equal cents, merchant.successful_invoices_revenue
+    revenue  = BigDecimal.new("10634.22")
+    assert_equal revenue, merchant.successful_invoices_revenue
   end
 
   def test_it_returns_successful_invoice_revenue_by_date
     date = Date.parse "2012-03-25 09:54:09 UTC"
     merchant = Merchant.new(@data[0], @repository)
-    cents= 1281794
-    assert_equal cents, merchant.date_invoices_revenue(date)
+    price = BigDecimal.new("12817.94")
+    assert_equal price, merchant.date_invoices_revenue(date)
   end
   
   def test_it_returns_the_correct_quantity
     merchant = Merchant.new(@data[0], @repository)
     quantity = 37
     assert_equal quantity, merchant.quantity
-  end
-
-  def test_it_returns_big_decimal
-    value = 1234567
-    decimal = BigDecimal.new("12345.67")
-    assert_equal decimal, @merchant.currency_for(value)
   end
 
   def test_it_returns_revenue_for_date

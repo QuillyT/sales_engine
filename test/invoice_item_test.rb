@@ -29,12 +29,12 @@ class InvoiceItemTest < MiniTest::Test
       updated_at: "2012-03-27 14:54:09 UTC",
     }
     invoice_item = InvoiceItem.new(data)
-
+    p = BigDecimal.new(data[:unit_price].to_s.rjust(3,"0").insert(-3,'.'))
     assert_equal data[:id],         invoice_item.id
     assert_equal data[:item_id],    invoice_item.item_id
     assert_equal data[:invoice_id], invoice_item.invoice_id
     assert_equal data[:quantity],   invoice_item.quantity
-    assert_equal data[:unit_price], invoice_item.unit_price
+    assert_equal p,                 invoice_item.unit_price
     assert_equal data[:created_at], invoice_item.created_at
     assert_equal data[:updated_at], invoice_item.updated_at
   end
@@ -52,7 +52,7 @@ class InvoiceItemTest < MiniTest::Test
   end
 
   def test_it_returns_the_total_for_this_invoice_item
-    data = 68175
+    data = BigDecimal.new("681.75")
     assert_equal data, @invoice_item.total
   end
 end

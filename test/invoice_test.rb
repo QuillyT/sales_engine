@@ -72,7 +72,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_it_returns_the_total_for_this_invoice
-    total = 2106777
+    total = BigDecimal.new("21067.77")
     assert_equal total, @invoice.total
   end
 
@@ -96,5 +96,20 @@ class InvoiceTest < MiniTest::Test
     assert failed_invoice.pending?, "Expected invoice to be pending" 
     refute @invoice.pending?, "Expected invoice to be pending"
   end
+
+  def test_it_creates_transactions
+    count = @engine.transaction_repository.all.count
+    charge_data  = { credit_card_number: "4444333322221111", 
+                     credit_card_expiration: "10/13", 
+                     result: 'success' }
+    invoice_data = { id: @repository.all.count+1 }
+    invoice      = Invoice.new(invoice_data,@repository)
+    invoice.charge(charge_data)
+    new_transactions = @engine.transaction_repository.all
+    assert_equal count+1, new_transactions.count
+    assert_equal invoice.id, new_transactions.last.invoice_id
+  end
+
+
 
 end

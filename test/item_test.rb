@@ -51,8 +51,8 @@ class ItemTest < MiniTest::Test
   end
 
   def test_it_returns_the_best_day_for_this_item
-   date = Date.parse "2012-03-27 14:54:11 UTC"
-   assert_equal date, @item.best_day
+    date = Date.parse "2012-03-25 13:54:11 UTC"
+    assert_equal date, @item.best_day
   end
 
 end

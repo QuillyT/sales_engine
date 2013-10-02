@@ -58,14 +58,10 @@ class Merchant
 
   def revenue(date = nil)
     if date.nil?
-      currency_for successful_invoices_revenue
+      successful_invoices_revenue
     else
-      currency_for date_invoices_revenue(date)
+      date_invoices_revenue(date)
     end
-  end
-
-  def currency_for(cents)
-    BigDecimal.new(cents.to_s.rjust(3, "0").insert(-3,"."))
   end
 
   def successful_invoices_revenue

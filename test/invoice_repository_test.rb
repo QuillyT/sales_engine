@@ -1,11 +1,13 @@
 require './test/test_helper'
-require './lib/invoice_repository.rb'
+require './test/sales_engine_stub.rb'
 
 class InvoiceRepositoryTest < MiniTest::Test
 
   def setup
-    @fixture = './test/fixtures/invoices.csv'
-    @invoice_repository = InvoiceRepository.new(@fixture)
+    @fixture             = './test/fixtures/invoices.csv'
+    @engine              = SalesEngineStub.new
+    @engine.startup
+    @invoice_repository  = InvoiceRepository.new(@fixture, @engine)
   end
 
   def test_it_initializes
@@ -106,6 +108,23 @@ class InvoiceRepositoryTest < MiniTest::Test
     date = "2012-03-25 09:54:09 UTC"
     invoices = @invoice_repository.find_all_by_updated_at(date)
     assert_equal 1, invoices.length
+  end
+
+  def test_it_creates_an_invoice
+    count    = @invoice_repository.all.count 
+    customer = @engine.customer_repository.all.first
+    merchant = @engine.merchant_repository.all.first
+    item     = merchant.items.first
+    new_invoice_data = {
+      customer: customer,
+      merchant: merchant,
+      status:   "shipped",
+      items: [ item ]
+    }
+    @invoice_repository.create(new_invoice_data)
+    assert_equal count + 1, @invoice_repository.all.count
+    assert_equal customer.id, @invoice_repository.all.last.customer_id
+    assert_equal merchant.id, @invoice_repository.all.last.merchant_id
   end
 
 end

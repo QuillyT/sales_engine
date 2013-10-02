@@ -127,4 +127,11 @@ class TransactionRepositoryTest < MiniTest::Test
     assert_equal 2, items.length
   end
 
+  def test_it_can_create_transactions
+    count = @repository.all.count
+    data = {}
+    @repository.create(data)
+    assert_equal count+1, @repository.all.count
+  end
+
 end

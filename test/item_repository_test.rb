@@ -1,6 +1,5 @@
 require './test/test_helper'
 require './test/sales_engine_stub'
-#require './lib/sales_engine'
 
 class ItemRepositoryTest < MiniTest::Test
 

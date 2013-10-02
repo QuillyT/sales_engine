@@ -1,11 +1,13 @@
 require './test/test_helper'
-require './lib/invoice_item_repository'
+require './test/sales_engine_stub'
 
 class InvoiceItemRepositoryTest < MiniTest::Test
 
   def setup
     @fixture = './test/fixtures/invoice_items.csv'
-    @repository = InvoiceItemRepository.new(@fixture)
+    @engine  = SalesEngineStub.new
+    @engine.startup
+    @repository = InvoiceItemRepository.new(@fixture, @engine)
   end
 
   def test_it_initializes
@@ -22,7 +24,6 @@ class InvoiceItemRepositoryTest < MiniTest::Test
     assert_equal 539, i.item_id
     assert_equal 1, i.invoice_id
     assert_equal 5, i.quantity
-    assert_equal 13635, i.unit_price
     assert_equal "2012-03-27 14:54:09 UTC", i.created_at
     assert_equal "2012-03-27 14:54:09 UTC", i.updated_at
   end
@@ -56,7 +57,7 @@ class InvoiceItemRepositoryTest < MiniTest::Test
 
   def test_find_by_unit_price
     #skip
-    price = 13635
+    price = BigDecimal.new("136.35")
     item = @repository.find_by_unit_price(price)
     assert_equal price, item.unit_price
   end
@@ -106,7 +107,8 @@ class InvoiceItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_all_by_unit_price
-    items = @repository.find_all_by_unit_price(72018)
+    unit_price = BigDecimal.new("720.18")
+    items = @repository.find_all_by_unit_price(unit_price)
     assert_equal 3, items.count
   end
 
@@ -128,6 +130,23 @@ class InvoiceItemRepositoryTest < MiniTest::Test
     date = "2012-03-27 14:54:09 UTC"
     items = @repository.find_all_by_updated_at(date)
     assert_equal 15, items.length
+  end
+
+  def test_it_creates_invoice_items_from_invoice_data
+    items = @engine.item_repository.all
+    items_from_invoice = [
+      items[0], items[1], items[1], items[2]
+    ]
+    invoice_data = {
+      id: 1,
+      items: items_from_invoice
+    }
+    count = @repository.all.count
+    @repository.create_invoice_items(invoice_data)
+    assert_equal count + 3, @repository.all.count
+  end
+
+  def test_it_creates_invoice_item_from_invoice_item_data
   end
 
 end

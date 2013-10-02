@@ -42,9 +42,17 @@ class Item
   end
 
   def best_day
-    Date.parse (successful_invoice_items.sort_by { |invoice_item| 
+    Date.parse(best_invoice_by_invoice_item.created_at)
+  end
+
+  def best_invoice_item
+    successful_invoice_items.sort_by { |invoice_item| 
       invoice_item.quantity
-    }.reverse[0].created_at)
+    }.reverse[0]
+  end
+
+  def best_invoice_by_invoice_item
+    repo.engine.invoice_repository.find_by_id(best_invoice_item.invoice_id)
   end
 
   def quantity_sold

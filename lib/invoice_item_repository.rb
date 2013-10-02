@@ -32,6 +32,33 @@ class InvoiceItemRepository
     all.sample
   end
 
+  def create_invoice_items(invoice_data)
+    invoice_item_counts(invoice_data).each do |item, count|
+      data = {
+        invoice_id: invoice_data[:id],
+        item_id: item.id,
+        quantity: count,
+        unit_price: item.unit_price,
+      }
+      create(data)
+    end
+  end
+
+  def invoice_item_counts(invoice_data)
+    invoice_data[:items].each_with_object(Hash.new(0)) do |item, counts| 
+      counts[item] += 1
+    end
+  end
+
+  def create(data)
+    data[:id] = all.count + 1
+    data[:created_at] = Time.now.utc
+    data[:updated_at] = Time.now.utc
+    invoice_item = InvoiceItem.new(data,self)
+    all << invoice_item
+    invoice_item
+  end
+
   InvoiceItem.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|

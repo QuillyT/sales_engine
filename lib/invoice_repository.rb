@@ -32,6 +32,29 @@ class InvoiceRepository
     all.sample
   end
 
+  def create(invoice_data)
+    invoice_data[:id] = all.count + 1
+    invoice = Invoice.new(parse_invoice_data(invoice_data), self)  
+    create_invoice_items_for_invoice(invoice_data)
+    all << invoice
+    invoice
+  end
+
+  def create_invoice_items_for_invoice(invoice_data)
+    engine.invoice_item_repository.create_invoice_items(invoice_data)
+  end
+
+  def parse_invoice_data(invoice_data)
+    {
+      :id          => invoice_data[:id],
+      :customer_id => invoice_data[:customer].id,
+      :merchant_id => invoice_data[:merchant].id,
+      :status      => invoice_data[:status],
+      :created_at  => Time.now.utc,
+      :updated_at  => Time.now.utc
+    }
+  end
+
   Invoice.new.public_attributes.each do |attribute|
     define_method "find_by_#{attribute}" do |criteria|
       all.find do |object|
