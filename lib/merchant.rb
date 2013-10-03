@@ -21,7 +21,7 @@ class Merchant
   end
 
   def quantity
-    successful_invoices.inject(0) { |sum, invoice| sum += invoice.quantity }
+    successful_invoices.map(&:quantity).inject(0, &:+)
   end
 
   def invoices

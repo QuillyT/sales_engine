@@ -24,12 +24,12 @@ class ItemRepository
 
   def most_items(num)
     num ||= all.count
-    all.sort_by { |item| item.quantity_sold }.reverse[0,num]
+    all.sort_by(&:quantity_sold).reverse[0,num]
   end
 
   def most_revenue(num)
     num ||= all.count
-    all.sort_by { |item| item.revenue }.reverse[0, num]
+    all.sort_by(&:revenue).reverse[0, num]
   end
 
 end

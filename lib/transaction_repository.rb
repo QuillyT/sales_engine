@@ -13,7 +13,7 @@ class TransactionRepository
   define_find_methods_for(Transaction)
 
   def initialize(engine, filename = default_filename)
-    @type = Transaction
+    @type   = Transaction
     @engine = engine
     load(filename)
   end

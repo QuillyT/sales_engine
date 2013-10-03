@@ -17,6 +17,10 @@ class Invoice
     [ :id, :customer_id, :merchant_id, :status, :created_at, :updated_at ]
   end
 
+  def created_at_as_date
+    Date.parse(created_at)
+  end
+
   def transactions
     repo.engine.transaction_repository.find_all_by_invoice_id(id)
   end

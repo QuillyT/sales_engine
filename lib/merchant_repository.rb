@@ -24,16 +24,16 @@ class MerchantRepository
 
   def most_revenue(num = nil)
     num ||= all.count
-    all.sort_by { |merchant| merchant.revenue }.reverse[0, num]
+    all.sort_by(&:revenue).reverse[0, num]
   end
 
   def most_items(num = nil)
     num ||= all.count
-    all.sort_by { |merchant| merchant.quantity }.reverse[0, num]
+    all.sort_by(&:quantity).reverse[0, num]
   end
 
   def revenue(date)
-    all.inject(0) { |revenue, merchant| revenue += merchant.revenue(date) }
+    all.map { |merchant| merchant.revenue(date) }.inject(0, &:+)
   end
 
   def dates_by_revenue
@@ -47,7 +47,7 @@ class MerchantRepository
   end
 
   def unique_sales_dates
-    all_invoices.collect { |invoice| Date.parse(invoice.created_at) }.uniq
+    all_invoices.collect(&:created_at_as_date).uniq
   end
 
   def sales_dates_with_revenues
