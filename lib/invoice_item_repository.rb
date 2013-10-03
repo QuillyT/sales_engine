@@ -26,9 +26,11 @@ class InvoiceItemRepository
     invoice_item_counts(invoice_data).each do |item, count|
       data = {
         invoice_id: invoice_data[:id],
-        item_id: item.id,
-        quantity: count,
+        item_id:    item.id,
+        quantity:   count,
         unit_price: item.unit_price,
+        created_at: time_now,
+        updated_at: time_now,
       }
       create(data)
     end
@@ -41,9 +43,7 @@ class InvoiceItemRepository
   end
 
   def create(data)
-    data[:id] = all.count + 1
-    data[:created_at] = time_now
-    data[:updated_at] = time_now
+    data[:id]    = all.count + 1
     invoice_item = InvoiceItem.new(data,self)
     all << invoice_item
     invoice_item
