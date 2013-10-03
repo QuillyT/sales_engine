@@ -23,7 +23,7 @@ class InvoiceRepository
   end
 
   def create(invoice_data)
-    invoice_data[:id] = all.count + 1
+    invoice_data[:id] = all.last.id + 1
     invoice = Invoice.new(parse_invoice_data(invoice_data), self)
     create_invoice_items_for_invoice(invoice_data)
     all << invoice

@@ -23,7 +23,7 @@ class TransactionRepository
   end
 
   def create(transaction_data)
-    transaction_data[:id]         = all.count+1
+    transaction_data[:id]         = all.last.id + 1
     transaction_data[:created_at] = time_now
     transaction_data[:updated_at] = time_now
     all << Transaction.new(transaction_data, self)

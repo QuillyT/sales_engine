@@ -65,7 +65,7 @@ class Merchant
   end
 
   def successful_invoices_revenue
-   successful_invoices.inject(0) { |sum, invoice| sum += invoice.total }
+    successful_invoices.inject(0) { |sum, invoice| sum += invoice.total }
   end
 
   def date_invoices_revenue(date)
