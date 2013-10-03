@@ -1,7 +1,7 @@
 require 'csv'
-require './lib/merchant'
-require './lib/repository_actions'
-require './lib/repository_find_generator'
+require_relative 'merchant'
+require_relative 'repository_actions'
+require_relative 'repository_find_generator'
 
 class MerchantRepository
 
@@ -33,7 +33,7 @@ class MerchantRepository
   end
 
   def revenue(date)
-    all.map { |merchant| merchant.revenue(date) }.inject(0, &:+)
+    all.inject(0) { |sum, merchant| sum += merchant.revenue(date) }
   end
 
   def dates_by_revenue

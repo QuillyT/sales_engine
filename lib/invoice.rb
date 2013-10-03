@@ -50,9 +50,7 @@ class Invoice
   end
 
   def total
-    invoice_items.inject(0) do |total, invoice_item|
-      total += invoice_item.total
-    end
+    invoice_items.inject(0) { |sum, invoice_items| sum += invoice_items.total }
   end
 
   def successful?

@@ -32,7 +32,7 @@ class Item
   end
 
   def successful_invoice_items
-    invoice_items.find_all { |invoice_item| invoice_item.successful? }
+    invoice_items.find_all(&:successful?)
   end
 
   def best_day
@@ -40,9 +40,7 @@ class Item
   end
 
   def best_invoice_item
-    successful_invoice_items.sort_by { |invoice_item|
-      invoice_item.quantity
-    }.reverse[0]
+    successful_invoice_items.sort_by(&:quantity).reverse[0]
   end
 
   def best_invoice_by_invoice_item
