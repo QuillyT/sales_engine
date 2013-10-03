@@ -9,5 +9,5 @@ module UnitConversions
   def convert_cents_to_dollars(cents)
     cents.to_i / 100.00
   end
-  
+
 end
