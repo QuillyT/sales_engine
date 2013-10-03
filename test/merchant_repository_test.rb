@@ -72,7 +72,7 @@ class MerchantRepositoryTest < MiniTest::Test
     assert_equal "2012-03-27 14:53:59 UTC", merchants[0].created_at
     assert_equal "2012-03-27 14:53:59 UTC", merchants[0].updated_at
   end
-  
+
   def test_find_all_by_name
     merchants = @repository.find_all_by_name("Schroeder-Jerde")
     assert_equal 1, merchants.length
@@ -134,6 +134,15 @@ class MerchantRepositoryTest < MiniTest::Test
     revenue = BigDecimal.new("33885.71")
     date = Date.parse "2012-03-25 09:54:09 UTC"
     assert_equal revenue, @repository.revenue(date)
+  end
+
+  def test_it_returns_a_collection_of_dates_by_revenue
+#    skip
+    date = "2012-03-13"
+    dates_count = 20
+    best_date = @repository.dates_by_revenue.first
+    assert_equal dates_count, @repository.dates_by_revenue.count
+    assert_equal date, best_date.to_s
   end
 
 end

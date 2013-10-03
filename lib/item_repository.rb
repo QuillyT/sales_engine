@@ -1,14 +1,16 @@
 require 'csv'
 require_relative 'item'
 require_relative 'repository_actions'
+require_relative 'repository_find_generator'
 
 class ItemRepository
 
   include RepositoryActions
+  extend  RepositoryFindGenerator
 
   attr_reader :type, :engine
 
-  RepositoryActions::define_find_methods_for(Item)
+  define_find_methods_for(Item)
 
   def initialize(engine, filename = default_filename)
     @type = Item
