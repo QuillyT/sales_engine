@@ -21,4 +21,11 @@ module RepositoryActions
     Time.now.utc
   end
 
+  def nuke_groups
+    type.public_attributes.each do |attribute|
+      name = "klass_grouped_by_#{attribute}"
+      instance_variable_set("@#{name}", {})
+    end
+  end
+
 end

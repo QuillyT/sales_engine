@@ -10,7 +10,9 @@ class ItemRepository
 
   attr_reader :type, :engine
 
-  define_find_methods_for(Item)
+  define_new_find_methods_for(Item)
+  define_new_find_all_methods_for(Item)
+  define_id_methods_for(Item)
 
   def initialize(engine, filename = default_filename)
     @type = Item

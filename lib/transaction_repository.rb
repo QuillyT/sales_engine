@@ -10,7 +10,9 @@ class TransactionRepository
 
   attr_reader :type, :engine
 
-  define_find_methods_for(Transaction)
+  define_new_find_methods_for(Transaction)
+  define_new_find_all_methods_for(Transaction)
+  define_id_methods_for(Transaction)
 
   def initialize(engine, filename = default_filename)
     @type   = Transaction
@@ -27,6 +29,7 @@ class TransactionRepository
     transaction_data[:created_at] = time_now
     transaction_data[:updated_at] = time_now
     all << Transaction.new(transaction_data, self)
+    nuke_groups
   end
 
 end

@@ -39,7 +39,7 @@ class ItemRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_case_insensitive_name
-    #skip
+    skip
     name = "Item Qui Esse"
     item = @repository.find_by_name("item qui esse")
     assert_equal name, item.name

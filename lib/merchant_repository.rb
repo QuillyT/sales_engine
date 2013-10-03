@@ -10,7 +10,9 @@ class MerchantRepository
 
   attr_reader :type, :engine
 
-  define_find_methods_for(Merchant)
+  define_new_find_methods_for(Merchant)
+  define_new_find_all_methods_for(Merchant)
+  define_id_methods_for(Merchant)
 
   def initialize(engine, filename = default_filename)
     @type = Merchant

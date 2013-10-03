@@ -10,7 +10,9 @@ class CustomerRepository
 
   attr_reader :type, :engine
 
-  define_find_methods_for(Customer)
+  define_new_find_methods_for(Customer)
+  define_new_find_all_methods_for(Customer)
+  define_id_methods_for(Customer)
 
   def initialize(engine, filename = default_filename)
     @type   = Customer

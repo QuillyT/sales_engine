@@ -10,7 +10,9 @@ class InvoiceItemRepository
 
   attr_reader :type, :engine
 
-  define_find_methods_for(InvoiceItem)
+  define_new_find_methods_for(InvoiceItem)
+  define_new_find_all_methods_for(InvoiceItem)
+  define_id_methods_for(InvoiceItem)
 
   def initialize(engine, filename = default_filename)
     @type = InvoiceItem
@@ -46,6 +48,7 @@ class InvoiceItemRepository
     data[:id]    = all.count + 1
     invoice_item = InvoiceItem.new(data,self)
     all << invoice_item
+    nuke_groups
     invoice_item
   end
 

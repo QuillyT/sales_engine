@@ -10,8 +10,6 @@ class InvoiceRepository
 
   attr_reader :type, :engine
 
-  define_find_methods_for(Invoice)
-
   def initialize(engine, filename = default_filename)
     @type          = Invoice
     @engine        = engine
@@ -22,11 +20,24 @@ class InvoiceRepository
     "./data/invoices.csv"
   end
 
+  def invoices_grouped_by_merchant_id
+    @invoices_grouped_by_merchant_id = all.group_by { |invoice| invoice.merchant_id }
+  end
+
+  def find_by_merchant_id(merchant_id)
+    Array(invoices_grouped_by_merchant_id[merchant_id]).first
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    invoices_grouped_by_merchant_id[merchant_id] || []
+  end
+
   def create(invoice_data)
     invoice_data[:id] = all.last.id + 1
     invoice = Invoice.new(parse_invoice_data(invoice_data), self)
     create_invoice_items_for_invoice(invoice_data)
     all << invoice
+    nuke_groups
     invoice
   end
 
@@ -44,5 +55,10 @@ class InvoiceRepository
       :updated_at  => time_now
     }
   end
+
+  #define_find_methods_for(Invoice)
+  define_new_find_methods_for(Invoice)
+  define_new_find_all_methods_for(Invoice)
+  define_id_methods_for(Invoice)
 
 end

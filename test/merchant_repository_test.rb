@@ -39,6 +39,7 @@ class MerchantRepositoryTest < MiniTest::Test
   end
 
   def test_find_by_case_insensitive_name
+    skip
     merchant = @repository.find_by_name("kLeIn, rEmPel anD JoNES")
     assert_equal 2, merchant.id
     assert_equal "2012-03-27 14:53:59 UTC", merchant.created_at
