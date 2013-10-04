@@ -37,12 +37,11 @@ module RepositoryFindGenerator
     klass.public_attributes.each do |attribute|
       name = "klass_grouped_by_#{attribute}"
       define_method name do
-        value = instance_variable_get("@#{name}")
-        if value.nil?
+        if instance_variable_get("@#{name}").nil?
           data  = all.group_by { |item| item.send(attribute) }
-          value = instance_variable_set("@#{name}", data)
+          instance_variable_set("@#{name}", data)
         end
-        value
+        instance_variable_get("@#{name}")
       end
     end
   end
