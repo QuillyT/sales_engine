@@ -35,11 +35,12 @@ module RepositoryFindGenerator
 
   def define_id_methods_for(klass)
     klass.public_attributes.each do |attribute|
-      define_method "klass_grouped_by_#{attribute}" do
+      name = "klass_grouped_by_#{attribute}"
+      define_method name do
         value = instance_variable_get("@#{name}")
         if value.nil?
-          data = all.group_by { |item| item.send(attribute) }
-          instance_variable_set("@#{name}", data)
+          data  = all.group_by { |item| item.send(attribute) }
+          value = instance_variable_set("@#{name}", data)
         end
         value
       end
