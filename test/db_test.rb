@@ -6,7 +6,12 @@ class DBTest < Minitest::Test
     assert DB
   end
 
-  def test_it_iniitializes_with_a_directory
+  def test_it_has_a_default_directory
+    db = DB.new
+    assert_equal './lib/db', db.dir
+  end
+
+  def test_can_be_initialized_with_a_directory
     dir = './test/db'
     db = DB.new(dir)
     assert_equal dir, db.dir
