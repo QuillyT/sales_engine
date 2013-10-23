@@ -11,6 +11,10 @@ class SalesEngineTest < MiniTest::Test
     assert_kind_of SalesEngine, @engine
   end
 
+  def test_it_has_a_database
+    assert_kind_of DB, @engine.database
+  end
+
   def test_it_starts_up
     @engine.startup
     assert_kind_of CustomerRepository,    @engine.customer_repository

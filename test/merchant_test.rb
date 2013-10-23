@@ -108,4 +108,12 @@ class MerchantTest < MiniTest::Test
     assert_equal pending_count, merchant.customers_with_pending_invoices.count
   end
 
+  def test_it_has_a_database
+    assert_kind_of DB, Merchant.database
+  end
+
+  def test_find_by_id
+    skip
+    assert_equal 5, Merchant.find(5).id
+  end
 end

@@ -1,6 +1,16 @@
 require 'bigdecimal'
+require_relative 'db'
 
 class Merchant
+
+  include DB
+
+  def self.find(id)
+  end
+
+  def self.database
+    DB.database
+  end
 
   attr_reader :id, :name, :created_at, :updated_at, :repo
 

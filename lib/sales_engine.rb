@@ -5,6 +5,8 @@ require_relative 'item_repository'
 require_relative 'merchant_repository'
 require_relative 'transaction_repository'
 
+require_relative 'db'
+
 class SalesEngine
 
   attr_reader :customer_repository, :invoice_repository,
@@ -13,6 +15,10 @@ class SalesEngine
 
   def initialize(dir = nil)
     startup
+  end
+
+  def database
+    @database ||= DB.new
   end
 
   def startup
