@@ -6,22 +6,15 @@ class DBTest < Minitest::Test
     assert DB
   end
 
-  def test_it_has_a_default_directory
-    db = DB.new
-    assert_equal './lib/db', db.dir
-  end
-
-  def test_can_be_initialized_with_a_directory
-    dir = './test/db'
-    db = DB.new(dir)
-    assert_equal dir, db.dir
+  def test_it_has_a_directory
+    assert_equal './test/db', DB.dir
   end
 
   def test_it_creates_a_new_db
     file = './test/db/sales_engine.sqlite3'
     refute File.exists?(file)
 
-    db = DB.new('./test/db').database
+    db = DB.database
     db.create_table :test do
       primary_key :id
       String      :name
