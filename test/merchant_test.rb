@@ -109,11 +109,10 @@ class MerchantTest < MiniTest::Test
   end
 
   def test_it_has_a_database
-    assert_kind_of DB, Merchant.database
+    assert_kind_of DB.database.class, Merchant.database
   end
 
   def test_find_by_id
-    skip
     assert_equal 5, Merchant.find(5).id
   end
 end

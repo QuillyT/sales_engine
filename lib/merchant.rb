@@ -6,9 +6,31 @@ class Merchant
   include DB
 
   def self.find(id)
+    data = database[:merchants].select.where(:id => id).to_a.first
+    Merchant.new(data)
+  end
+
+  def self.file
+    "./test/fixtures/merchants.csv"
   end
 
   def self.database
+    @database ||= populate_database
+  end
+
+  def self.create_table
+    DB.database.create_table :merchants do
+      primary_key :id
+      String      :name
+      String      :created_at
+      String      :updated_at
+    end
+  end
+
+  def self.populate_database
+    DB.database.drop_table(:merchants)
+    create_table
+    DB.populate(:merchants, file)
     DB.database
   end
 
